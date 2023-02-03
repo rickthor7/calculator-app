@@ -1,26 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
-
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Calculator app</title>
-
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
+	<meta charset="UTF-8">
+	<meta name="description" content="Frontend Mentor Challenge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!--<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&display=swap" rel="stylesheet">-->
+	<link rel="stylesheet" href="css/default.css">
+	<link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+	<title>Frontend Mentor | Calculator app</title>
 </head>
+
 <body>
+	<header class="header">
+		<h1 class="heading">calc</h1>
 
+		<div class="toggle-switch-container">
+			<h2 class="theme-heading">Theme</h2>
+			<fieldset class="toggle-switch">
+				<legend class="sr-only">Choose a theme</legend>
 
-  
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
+				<div class="toggle-switch-labels">
+					<p id="toggle-switch-label1" class="toggle-switch-label">1</p>
+					<p id="toggle-switch-label2" class="toggle-switch-label">2</p>
+					<p id="toggle-switch-label3" class="toggle-switch-label">3</p>
+				</div>
+				<div class="toggle-switch-radios">
+					<input type="radio" name="theme" id="toggle-switch-radio1" class="toggle-switch-radio" value="theme1" aria-labelledby="toggle-switch-label1" checked>
+					<input type="radio" name="theme" id="toggle-switch-radio2" class="toggle-switch-radio" value="theme2" aria-labelledby="toggle-switch-label2">
+					<input type="radio" name="theme" id="toggle-switch-radio3" class="toggle-switch-radio" value="theme3" aria-labelledby="toggle-switch-label3">
+				</div>
+				<div class="toggle-switch-button"></div>
+			</fieldset>
+		</div>
+	</header>
+	<main>
+		<input type="text" id="result" class="result" value="0" readonly>
+		<label for="result" class="sr-only">Calculation Result</label>
+
+		<fieldset class="keypad">
+			<legend class="sr-only">Enter a calculation</legend>
+
+			<button class="key key-light" value="7">7</button>
+			<button class="key key-light" value="8">8</button>
+			<button class="key key-light" value="9">9</button>
+			<button class="key key-delete" value="delete">Del</button>
+			<button class="key key-light" value="4">4</button>
+			<button class="key key-light" value="5">5</button>
+			<button class="key key-light" value="6">6</button>
+			<button class="key key-light" value="+">&plus;</button>
+			<button class="key key-light" value="1">1</button>
+			<button class="key key-light" value="2">2</button>
+			<button class="key key-light" value="3">3</button>
+			<button class="key key-light" value="-">&minus;</button>
+			<button class="key key-light" value=".">.</button>
+			<button class="key key-light" value="0">0</button>
+			<button class="key key-light" value="/">&#247;</button>
+			<button class="key key-light" value="*">&#215;</button>
+			<button class="key key-reset" value="reset">Reset</button>
+			<button class="key key-result" value="=">=</button>
+		</fieldset>
+	</main>
+	<script src="js/default.js"></script>
 </body>
+
 </html>
