@@ -114,8 +114,8 @@
 	}
 
 	function getRawValue() {
-		console.log('getRawValue() = ' + parseFloat(result.value.replace(',','')));
-		return parseFloat(result.value.replace(',',''));
+		//console.log('getRawValue() = ' + parseFloat(result.value.replace(/,/g, '')));
+		return parseFloat(result.value.replace(/,/g, ''));
 	}
 
 	function keyPushed(e) {
@@ -142,7 +142,8 @@
 			case 'delete':
 				if (result.value.length > 1) {
 					// Delete a number on every press
-					result.value = result.value.substr(0, result.value.length - 1);
+					let rawValue = result.value.replace(/,/g, '');
+					result.value = formatter.format(parseFloat(rawValue.substr(0, rawValue.length - 1)));
 				} else if (result.value.length === 1) {
 					// If a single number is left, then zero it out
 					result.value = 0;
@@ -159,7 +160,11 @@
 					result.value = e.target.value;
 					signFlag = false;
 				} else {
-					result.value += e.target.value;
+					const digitsOnly = result.value.replace(/,\./g, '');
+					if (digitsOnly.length + 1 < 16) {
+						const newValue = parseFloat(result.value.replace(/,/g, '') + e.target.value);
+						result.value = formatter.format(newValue);
+					}
 				}
 				break;
 		}
