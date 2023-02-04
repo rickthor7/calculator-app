@@ -5,6 +5,7 @@
 
 	const toggleButton = document.querySelector('.toggle-switch-button');
 
+	// Slide the tri-state toggle switch into position
 	function setToggleState(themeName) {
 		switch (themeName) {
 			case 'theme1':
@@ -38,6 +39,7 @@
 		toggleButton.style.left = '0.3rem';
 	}
 
+	// The three (tri-state) radio button click listeners
 	const toggleRadios = document.querySelectorAll('input[name=theme]');
 	for (let i = 0; i < toggleRadios.length; ++i) {
 		toggleRadios[i].addEventListener('click', toggleTheme, false);
@@ -83,16 +85,17 @@
 	function calculateArray() {
 		let total = 0;
 
-		if (mathArray[1] === '+') {
+		if (mathArray[1] === '+') { // Addition
 			total = mathArray[0] + mathArray[2];
-		} else if (mathArray[1] === '-') {
+		} else if (mathArray[1] === '-') { // Subtraction
 			total = mathArray[0] - mathArray[2];
-		} else if (mathArray[1] === '*') {
+		} else if (mathArray[1] === '*') { // Multiplication
 			total = mathArray[0] * mathArray[2];
-		} else if (mathArray[1] === '/') {
+		} else if (mathArray[1] === '/') {// Division
 			if (mathArray[2] !== 0) { // Divide by zero check
 				total = mathArray[0] / mathArray[2];
 			} else {
+				// Cannot divide by zero!
 				total = 0;
 				mathArray = [];
 				divideByZeroFlag = true;
@@ -101,11 +104,14 @@
 
 		if (!divideByZeroFlag) {
 			if (mathArray[3] !== '=') {
+				// As operators are entered, continue the sequence
 				mathArray = [total, mathArray[3]];
 			} else {
+				// Equal pressed. Total it up!
 				mathArray = [total];
 			}
 
+			// Display result
 			result.value = formatter.format(total);
 		} else {
 			result.value = 'Cannot divide by zero';
@@ -126,21 +132,28 @@
 			case '/':
 			case '=':
 				if (operationFlag) {
+					// Replace previously entered operator with new operator
 					mathArray[mathArray.length - 1] = e.target.value;
 				} else {
+					// Add entered number followed by operator into sequence
 					mathArray.push(getRawValue());
 					mathArray.push(e.target.value);	
 				}
+
 				if (mathArray.length === 4) {
+					// We have enough operations entered - calculate it!
 					calculateArray();
 				}
+
 				operationFlag = true;
 				break;
 			case '.':
 				if (operationFlag) {
+					// If decimal was entered using an operation, add zero to front
 					result.value = '0.';
 					operationFlag = false;
 				} else {
+					// Otherwise, append the decimal to current number
 					result.value += '.';
 				}
 				break;
@@ -161,10 +174,12 @@
 				mathArray = [];
 				break;
 			default:
+				// If the beginning of a number entry or an operation was used
 				if (result.value === '0' || operationFlag) {
 					result.value = e.target.value;
 					operationFlag = false;
 				} else {
+					// Keep the number of digits entered less than 16
 					const digitsOnly = result.value.replace(/,\./g, '');
 					if (digitsOnly.length + 1 < 16) {
 						const newValue = parseFloat(result.value.replace(/,/g, '') + e.target.value);
