@@ -137,7 +137,12 @@
 				signFlag = true;
 				break;
 			case '.':
-				result.value += '.';
+				if (signFlag) {
+					result.value = '0.';
+					signFlag = false;
+				} else {
+					result.value += '.';
+				}
 				break;
 			case 'delete':
 				if (result.value.length > 1) {
