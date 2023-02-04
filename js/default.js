@@ -23,20 +23,18 @@
 	function setTheme(themeName) {
 		localStorage.setItem('theme', themeName);
 		document.documentElement.className = themeName;
+		setToggleState(themeName);
 	}
 
 	function toggleTheme() {
 		const selectedTheme = document.querySelector('input[name=theme]:checked').value;
-		setToggleState(selectedTheme);
 		setTheme(selectedTheme);
 	}
 
 	if (currentTheme) {
-		setToggleState(currentTheme);
 		setTheme(currentTheme);
 	} else {
 		setTheme('theme1'); // Default theme
-		toggleButton.style.left = '0.3rem';
 	}
 
 	// The three (tri-state) radio button click listeners
@@ -48,28 +46,19 @@
 	// Dark mode media query checker
 	const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
 	prefersDarkMode.addEventListener('change', (e) => {
-		if (e.matches) {
-			setTheme('theme1');
-			toggleButton.style.left = '0.3rem'
-		};
+		if (e.matches) setTheme('theme1');
 	}, false);
 
 	// Light mode media query checker
 	const prefersLightMode = window.matchMedia('(prefers-color-scheme: light)');
 	prefersLightMode.addEventListener('change', (e) => {
-		if (e.matches) {
-			setTheme('theme2');
-			toggleButton.style.left = 'calc(50% - 0.465rem)';
-		}
+		if (e.matches) setTheme('theme2');
 	}, false);
 
 	// High contrast mode media query checker
 	const prefersHighContrastMode = window.matchMedia('(prefers-contrast: more)');
 	prefersHighContrastMode.addEventListener('change', (e) => {
-		if (e.matches) {
-			setTheme('theme3');
-			toggleButton.style.left = 'calc(100% - 0.93rem - 0.3rem)';
-		}
+		if (e.matches) setTheme('theme3');
 	}, false);
 
 	/* --- Calculator --- */
