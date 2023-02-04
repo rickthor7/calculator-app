@@ -108,8 +108,8 @@
 		}
 	}
 
-	function getRawValue() {
-		return parseFloat(result.value.replace(/,/g, ''));
+	function getValueWithoutCommas() {
+		return result.value.replace(/,/g, '');
 	}
 
 	function keyPushed(e) {
@@ -124,7 +124,7 @@
 					mathArray[mathArray.length - 1] = e.target.value;
 				} else {
 					// Add entered number followed by operator into sequence
-					mathArray.push(getRawValue());
+					mathArray.push(parseFloat(getValueWithoutCommas()));
 					mathArray.push(e.target.value);	
 				}
 
@@ -148,7 +148,7 @@
 			case 'delete':
 				if (result.value.length > 1) {
 					// Delete a number on every press
-					let rawValue = result.value.replace(/,/g, '');
+					let rawValue = getValueWithoutCommas();
 					result.value = formatter.format(parseFloat(rawValue.substr(0, rawValue.length - 1)));
 				} else if (result.value.length === 1) {
 					// If a single number is left, then zero it out
@@ -170,7 +170,7 @@
 					// Keep the number of digits entered less than 16
 					const digitsOnly = result.value.replace(/,\./g, '');
 					if (digitsOnly.length + 1 < 16) {
-						const newValue = parseFloat(result.value.replace(/,/g, '') + e.target.value);
+						const newValue = parseFloat(getValueWithoutCommas() + e.target.value);
 						result.value = formatter.format(newValue);
 					}
 				}
