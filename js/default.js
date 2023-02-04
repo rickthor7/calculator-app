@@ -43,20 +43,17 @@
 	});
 
 	// Dark mode media query checker
-	const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
-	prefersDarkMode.addEventListener('change', (e) => {
+	window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
 		if (e.matches) setTheme('theme1');
 	}, false);
 
 	// Light mode media query checker
-	const prefersLightMode = window.matchMedia('(prefers-color-scheme: light)');
-	prefersLightMode.addEventListener('change', (e) => {
+	window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
 		if (e.matches) setTheme('theme2');
 	}, false);
 
 	// High contrast mode media query checker
-	const prefersHighContrastMode = window.matchMedia('(prefers-contrast: more)');
-	prefersHighContrastMode.addEventListener('change', (e) => {
+	window.matchMedia('(prefers-contrast: more)').addEventListener('change', (e) => {
 		if (e.matches) setTheme('theme3');
 	}, false);
 
