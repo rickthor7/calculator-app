@@ -109,7 +109,6 @@
 	}
 
 	function getRawValue() {
-		//console.log('getRawValue() = ' + parseFloat(result.value.replace(/,/g, '')));
 		return parseFloat(result.value.replace(/,/g, ''));
 	}
 
