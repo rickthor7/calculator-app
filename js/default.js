@@ -77,7 +77,7 @@
 	const result = document.querySelector('#result');
 	result.value = 0;
 	let mathArray = [];
-	let signFlag = false;
+	let operationFlag = false;
 	let divideByZeroFlag = false;
 
 	function calculateArray() {
@@ -125,7 +125,7 @@
 			case '*':
 			case '/':
 			case '=':
-				if (signFlag) {
+				if (operationFlag) {
 					mathArray[mathArray.length - 1] = e.target.value;
 				} else {
 					mathArray.push(getRawValue());
@@ -134,12 +134,12 @@
 				if (mathArray.length === 4) {
 					calculateArray();
 				}
-				signFlag = true;
+				operationFlag = true;
 				break;
 			case '.':
-				if (signFlag) {
+				if (operationFlag) {
 					result.value = '0.';
-					signFlag = false;
+					operationFlag = false;
 				} else {
 					result.value += '.';
 				}
@@ -161,9 +161,9 @@
 				mathArray = [];
 				break;
 			default:
-				if (result.value === '0' || signFlag) {
+				if (result.value === '0' || operationFlag) {
 					result.value = e.target.value;
-					signFlag = false;
+					operationFlag = false;
 				} else {
 					const digitsOnly = result.value.replace(/,\./g, '');
 					if (digitsOnly.length + 1 < 16) {
