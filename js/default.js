@@ -38,10 +38,9 @@
 	}
 
 	// The three (tri-state) radio button click listeners
-	const toggleRadios = document.querySelectorAll('input[name=theme]');
-	for (let i = 0; i < toggleRadios.length; ++i) {
-		toggleRadios[i].addEventListener('click', toggleTheme, false);
-	}
+	document.querySelectorAll('input[name=theme]').forEach((toggleRadio) => {
+		toggleRadio.addEventListener('click', toggleTheme, false);
+	});
 
 	// Dark mode media query checker
 	const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
@@ -178,8 +177,7 @@
 		}
 	}
 
-	const keys = document.querySelectorAll('.key');
-	for (let i = 0; i < keys.length; ++i) {
-		keys[i].addEventListener('click', keyPushed, false);
-	}
+	document.querySelectorAll('.key').forEach((key) => {
+		key.addEventListener('click', keyPushed, false);
+	});
 })();
