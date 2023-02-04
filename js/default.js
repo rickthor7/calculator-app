@@ -1,8 +1,6 @@
 (() => {
 	/* --- Theme Switcher --- */
 
-	let currentTheme = localStorage.getItem('theme');
-
 	const toggleButton = document.querySelector('.toggle-switch-button');
 
 	// Slide the tri-state toggle switch into position
@@ -26,15 +24,18 @@
 		setToggleState(themeName);
 	}
 
+	{ // Initialize theme
+		let currentTheme = localStorage.getItem('theme');
+		if (currentTheme) {
+			setTheme(currentTheme);
+		} else {
+			setTheme('theme1'); // Default theme
+		}
+	}
+
 	function toggleTheme() {
 		const selectedTheme = document.querySelector('input[name=theme]:checked').value;
 		setTheme(selectedTheme);
-	}
-
-	if (currentTheme) {
-		setTheme(currentTheme);
-	} else {
-		setTheme('theme1'); // Default theme
 	}
 
 	// The three (tri-state) radio button click listeners
