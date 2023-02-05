@@ -25,8 +25,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [https://www.frontendmentor.io/solutions/calculator-app-z_QMHXHE9A](https://www.frontendmentor.io/solutions/calculator-app-z_QMHXHE9A)
+- Live Site URL: [https://seranela.github.io/calculator-app/](https://seranela.github.io/calculator-app/)
 
 ## My process
 
