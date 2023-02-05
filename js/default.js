@@ -110,6 +110,29 @@
 		return result.value.replace(/,/g, '');
 	}
 
+	function autoScaleResult() {
+		// Scale result font size down if too many characters are shown
+		if (result.scrollWidth > result.clientWidth) {
+			fontScales.push(window.getComputedStyle(result)['font-size']);
+			const charWidth = result.scrollWidth / result.value.length;
+			result.style.fontSize = `calc(${charWidth}px - ${charWidth / result.clientWidth}px)`;
+		}
+
+		// If result font was scaled down, check to see if it can scaled back up
+		// based on number of chars and current font size of result field.
+		if (fontScales.length) {
+			const digitsOnly = result.value.replace(/[,\.]/g, '');
+			const charWidth = parseInt(window.getComputedStyle(result)['font-size'].replace('px',''));
+			const charsWidthTotal = (digitsOnly.length - 1) * charWidth;
+			const charsWidthTotalInResultHalf = Math.ceil(result.clientWidth / 2 / charWidth) * charWidth;
+
+			if (charsWidthTotal <= charsWidthTotalInResultHalf) {
+				result.style.fontSize = fontScales[fontScales.length - 1];
+				fontScales.pop();
+			}
+		}
+	}
+
 	function keyPushed(e) {
 		switch (e.target.value) {
 			case '+':
@@ -175,26 +198,7 @@
 				break;
 		}
 
-		// Scale result font size down if too many characters are shown
-		if (result.scrollWidth > result.clientWidth) {
-			fontScales.push(window.getComputedStyle(result)['font-size']);
-			const charWidth = result.scrollWidth / result.value.length;
-			result.style.fontSize = `calc(${charWidth}px - ${charWidth / result.clientWidth}px)`;
-		}
-
-		// If result font was scaled down, check to see if it can scaled back up
-		// based on number of chars and current font size of result field.
-		if (fontScales.length) {
-			const digitsOnly = result.value.replace(/[,\.]/g, '');
-			const charWidth = parseInt(window.getComputedStyle(result)['font-size'].replace('px',''));
-			const charsWidthTotal = (digitsOnly.length - 1) * charWidth;
-			const charsWidthTotalInResultHalf = Math.ceil(result.clientWidth / 2 / charWidth) * charWidth;
-
-			if (charsWidthTotal <= charsWidthTotalInResultHalf) {
-				result.style.fontSize = fontScales[fontScales.length - 1];
-				fontScales.pop();
-			}
-		}
+		autoScaleResult();
 	}
 
 	document.querySelectorAll('.key').forEach((key) => {
@@ -202,5 +206,5 @@
 	});
 
 	// If window is resized, check result value font size and scale as needed
-	window.addEventListener('resize', keyPushed, false);
+	window.addEventListener('resize', autoScaleResult, false);
 })();
