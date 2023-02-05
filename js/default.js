@@ -67,6 +67,7 @@
 	let mathArray = [];
 	let operationFlag = false;
 	let divideByZeroFlag = false;
+	let fontScales = [];
 
 	function calculateArray() {
 		let total = 0;
@@ -165,7 +166,7 @@
 					operationFlag = false;
 				} else {
 					// Keep the number of digits entered less than 16
-					const digitsOnly = result.value.replace(/,\./g, '');
+					const digitsOnly = result.value.replace(/[,\.]/g, '');
 					if (digitsOnly.length + 1 < 16) {
 						const newValue = parseFloat(getValueWithoutCommas() + e.target.value);
 						result.value = formatter.format(newValue);
@@ -173,9 +174,33 @@
 				}
 				break;
 		}
+
+		// Scale result font size down if too many characters are shown
+		if (result.scrollWidth > result.clientWidth) {
+			fontScales.push(window.getComputedStyle(result)['font-size']);
+			const charWidth = result.scrollWidth / result.value.length;
+			result.style.fontSize = `calc(${charWidth}px - ${charWidth / result.clientWidth}px)`;
+		}
+
+		// If result font was scaled down, check to see if it can scaled back up
+		// based on number of chars and current font size of result field.
+		if (fontScales.length) {
+			const digitsOnly = result.value.replace(/[,\.]/g, '');
+			const charWidth = parseInt(window.getComputedStyle(result)['font-size'].replace('px',''));
+			const charsWidthTotal = (digitsOnly.length - 1) * charWidth;
+			const charsWidthTotalInResultHalf = Math.ceil(result.clientWidth / 2 / charWidth) * charWidth;
+
+			if (charsWidthTotal <= charsWidthTotalInResultHalf) {
+				result.style.fontSize = fontScales[fontScales.length - 1];
+				fontScales.pop();
+			}
+		}
 	}
 
 	document.querySelectorAll('.key').forEach((key) => {
 		key.addEventListener('click', keyPushed, false);
 	});
+
+	// If window is resized, check result value font size and scale as needed
+	window.addEventListener('resize', keyPushed, false);
 })();

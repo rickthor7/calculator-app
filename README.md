@@ -10,7 +10,6 @@ This is a solution to the [Calculator app challenge on Frontend Mentor](https://
 - [My process](#my-process)
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
 - [Author](#author)
 
 ## Overview
@@ -46,9 +45,7 @@ Checking theme modes using `matchMedia()`. I was a little confused on how to set
 
 Chrome's Lighthouse was complaining about the tri-state theme toggle switcher in regards to being too small for thumb pressing. I made it larger for minimum 48x48px thumb pressing.
 
-### Continued development
-
-I tried to setup an font autosizer for the result value when larger numbers start filling it up so that the number could be fully visible. It was working as I added numbers, but I couldn't find an elegant, simple solution for when the number becomes smaller or gets deleted. May look into it further in the future.
+Added an automatic font sizer based on the number of characters entered. It scales back up as well if numbers are removed and will also be checked if window is resized.
 
 ## Author
 
